@@ -1,0 +1,14 @@
+{
+    "full_name": "Andrea Riciputi",
+    "email": "andrea.riciputi@gmail.com",
+    "license": "BSD-2-Clause",
+    "project_name": "awesome-project",
+    "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",
+    "project_short_description": "Short description of the package",
+    "project_keywords": "list of space-separated keywords",
+    "project_url": "https://github.com/ariciputi/{{cookiecutter.project_name.lower()}}",
+    "release_date": "{% now 'local' %}",
+    "version": "0.1.0",
+    "init_git_repo": "y",
+    "_extensions": ["jinja2_time.TimeExtension"]
+}
