@@ -1,0 +1,20 @@
+ARG SERVICE_NAME=cookiecutter-base
+ARG SRC_DIR=/opt/src/${SERVICE_NAME}
+
+FROM python:3.7-slim
+
+ARG SRC_DIR
+
+WORKDIR ${SRC_DIR}
+
+RUN apt-get update && apt-get install -y git
+
+RUN git config --global user.email "nemo@nullius.com" && git config --global user.name "Nemo"
+
+COPY ./ ./
+
+RUN pip install --user -r requirements-tests.txt
+
+ENV PATH=/root/.local/bin/:$PATH
+
+CMD pytest -vv tests/

@@ -1,0 +1,4 @@
+poetry~=1.0
+pytest~=5.4
+pytest-cookies~=0.5
+
