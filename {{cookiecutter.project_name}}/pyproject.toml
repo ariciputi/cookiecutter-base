@@ -27,6 +27,9 @@ pdocs = "^1.0"
 mkdocs = "^1.1"
 portray = "^1.4"
 {% endif %}
+{% if cookiecutter.use_infosec == 'y' %}
+bandit = "^1.6"
+{% endif %}
 
 [tool.pytest.ini_options]
 minversion = "6.0"

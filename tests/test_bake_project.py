@@ -70,6 +70,9 @@ def test_project_tree(cookies):
         assert not check_portray.returncode == 0
         assert not result.project.join("docs").check(dir=1)
 
+        check_bandit = subprocess.run(["poetry", "show", "bandit"])
+        assert not check_bandit.returncode == 0
+
 
 def test_no_git_repo(cookies):
     result = cookies.bake(
@@ -111,3 +114,17 @@ def test_with_documentation(cookies):
         check_portray = subprocess.run(["poetry", "show", "portray"])
         assert check_portray.returncode == 0
         assert result.project.join("docs").check(dir=1)
+
+
+def test_with_infosec(cookies):
+    result = cookies.bake(
+        extra_context={"project_name": "test-project", "use_infosec": "y"}
+    )
+
+    assert result.exit_code == 0
+    assert result.exception is None
+    assert result.project.basename == "test-project"
+
+    with inside_dir(str(result.project)):
+        check_bandit = subprocess.run(["poetry", "show", "bandit"])
+        assert check_bandit.returncode == 0

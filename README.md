@@ -30,6 +30,10 @@ Optionally you can add automatic documentation generation by adding
 development dependencies and having documentantion automatically generated from
 docstrings is way easier than any other alternative.
 
+Eventually if you want to add some infosec-related dependencies you can. At the
+moment only [bandit](https://pypi.org/project/bandit/) is supported but other
+packages will be added soon.
+
 ## Caveat
 
 Because the template itself creates a Python virtual environment, you cannot run

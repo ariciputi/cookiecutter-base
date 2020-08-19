@@ -17,4 +17,11 @@ repos:
         entry: poetry run pytest
         language: system
         types: [python]
+{% if cookiecutter.use_infosec == 'y' %}
+    -   id: bandit
+        name: bandit
+        entry: poetry run bandit --recursive src
+        language: system
+        types: [python]
+{% endif %}
 
