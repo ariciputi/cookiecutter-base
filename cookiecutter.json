@@ -10,5 +10,6 @@
     "release_date": "{% now 'local' %}",
     "version": "0.1.0",
     "init_git_repo": "y",
+    "use_pre_commit": "y",
     "_extensions": ["jinja2_time.TimeExtension"]
 }

@@ -19,7 +19,9 @@ black = "^19.10b0"
 toml = "^0.10"
 isort = {extras = ["pyproject"], version = "^4.3"}
 pylint = "^2.5"
+{% if cookiecutter.use_pre_commit == 'y' %}
 pre-commit = "^2.6"
+{% endif %}
 
 [tool.pytest.ini_options]
 minversion = "6.0"

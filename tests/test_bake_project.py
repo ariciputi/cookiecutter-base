@@ -62,6 +62,10 @@ def test_project_tree(cookies):
             == f"{project_name} {project_version}"
         )
 
+        check_pre_commit = subprocess.run(["poetry", "show", "pre-commit"])
+        assert check_pre_commit.returncode == 0
+        assert result.project.join(".pre-commit-config.yaml").check(file=1)
+
 
 def test_no_git_repo(cookies):
     result = cookies.bake(
@@ -73,3 +77,17 @@ def test_no_git_repo(cookies):
     assert result.project.basename == "test-project"
 
     assert not result.project.join(".git").check(dir=1)
+
+
+def test_no_pre_commit(cookies):
+    result = cookies.bake(
+        extra_context={"project_name": "test-project", "use_pre_commit": "n"}
+    )
+
+    assert result.exit_code == 0
+    assert result.exception is None
+    assert result.project.basename == "test-project"
+
+    check_pre_commit = subprocess.run(["poetry", "show", "pre-commit"])
+    assert not check_pre_commit.returncode == 0
+    assert not result.project.join(".pre-commit-config.yaml").check(file=1)

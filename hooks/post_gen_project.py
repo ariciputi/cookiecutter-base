@@ -1,14 +1,13 @@
+# pylint: disable=missing-docstring
 #!/usr/bin/env python
 
-import glob
 import logging
 import os
-import shutil
 import subprocess
 import sys
 
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
-log = logging.getLogger(__name__)
+log = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 def remove_file(filepath):
@@ -41,11 +40,15 @@ def main():
             ["git", "commit", "--no-verify", "-m", "Initial commit"], check=True
         )
 
+    if is_false("{{ cookiecutter.use_pre_commit }}"):
+        print("Removing pre-commit conf file...")
+        os.remove(os.path.join(PROJECT_DIRECTORY, ".pre-commit-config.yaml"))
+
 
 if __name__ == "__main__":
     try:
         main()
-    except Exception as exc:
+    except Exception as exc:  # pylint: disable=broad-except
         print("Post generation hook failed with the following error:")
         log.exception(exc)
         sys.exit(1)
