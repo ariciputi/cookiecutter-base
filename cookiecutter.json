@@ -11,5 +11,6 @@
     "version": "0.1.0",
     "init_git_repo": "y",
     "use_pre_commit": "y",
+    "use_portray_docs": "n",
     "_extensions": ["jinja2_time.TimeExtension"]
 }

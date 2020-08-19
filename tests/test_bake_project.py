@@ -66,6 +66,10 @@ def test_project_tree(cookies):
         assert check_pre_commit.returncode == 0
         assert result.project.join(".pre-commit-config.yaml").check(file=1)
 
+        check_portray = subprocess.run(["poetry", "show", "portray"])
+        assert not check_portray.returncode == 0
+        assert not result.project.join("docs").check(dir=1)
+
 
 def test_no_git_repo(cookies):
     result = cookies.bake(
@@ -88,6 +92,22 @@ def test_no_pre_commit(cookies):
     assert result.exception is None
     assert result.project.basename == "test-project"
 
-    check_pre_commit = subprocess.run(["poetry", "show", "pre-commit"])
-    assert not check_pre_commit.returncode == 0
-    assert not result.project.join(".pre-commit-config.yaml").check(file=1)
+    with inside_dir(str(result.project)):
+        check_pre_commit = subprocess.run(["poetry", "show", "pre-commit"])
+        assert not check_pre_commit.returncode == 0
+        assert not result.project.join(".pre-commit-config.yaml").check(file=1)
+
+
+def test_with_documentation(cookies):
+    result = cookies.bake(
+        extra_context={"project_name": "test-project", "use_portray_docs": "y"}
+    )
+
+    assert result.exit_code == 0
+    assert result.exception is None
+    assert result.project.basename == "test-project"
+
+    with inside_dir(str(result.project)):
+        check_portray = subprocess.run(["poetry", "show", "portray"])
+        assert check_portray.returncode == 0
+        assert result.project.join("docs").check(dir=1)

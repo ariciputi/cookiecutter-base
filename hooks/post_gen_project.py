@@ -3,6 +3,7 @@
 
 import logging
 import os
+import shutil
 import subprocess
 import sys
 
@@ -43,6 +44,10 @@ def main():
     if is_false("{{ cookiecutter.use_pre_commit }}"):
         print("Removing pre-commit conf file...")
         os.remove(os.path.join(PROJECT_DIRECTORY, ".pre-commit-config.yaml"))
+
+    if is_false("{{ cookiecutter.use_portray_docs }}"):
+        print("Removing documentation folder...")
+        shutil.rmtree(os.path.join(PROJECT_DIRECTORY, "docs"))
 
 
 if __name__ == "__main__":

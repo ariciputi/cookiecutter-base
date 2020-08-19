@@ -24,6 +24,12 @@ The development tools automatically installed in the virtualenv are:
 - [pytest](https://docs.pytest.org/en/stable/) along with [pytest-cov](https://pypi.org/project/pytest-cov/) and [pytest-randomly](https://pypi.org/project/pytest-randomly/)
 - [coverage](https://pypi.org/project/coverage/)
 
+Optionally you can add automatic documentation generation by adding
+[portray](https://pypi.org/project/portray/) as an additional dependency. I know
+`portray` is a little bit heavy on dependencies, but after all they are just
+development dependencies and having documentantion automatically generated from
+docstrings is way easier than any other alternative.
+
 ## Caveat
 
 Because the template itself creates a Python virtual environment, you cannot run
